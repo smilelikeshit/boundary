@@ -25,20 +25,20 @@ func TestMigrateDatabase(t *testing.T) {
 		expectedOutput string
 		expectedError  string
 	}{
-		{
-			name:        "not_initialized_expected_not_intialized",
-			initialized: false,
-			urlProvider: func() string {
-				c, u, _, err := db.StartDbInDocker(dialect)
-				require.NoError(t, err)
-				t.Cleanup(func() {
-					require.NoError(t, c())
-				})
-				return u
-			},
-			expectedCode:   0,
-			expectedOutput: "Migrations successfully run.\n",
-		},
+		// {
+		// 	name:        "not_initialized_expected_not_intialized",
+		// 	initialized: false,
+		// 	urlProvider: func() string {
+		// 		c, u, _, err := db.StartDbInDocker(dialect)
+		// 		require.NoError(t, err)
+		// 		t.Cleanup(func() {
+		// 			require.NoError(t, c())
+		// 		})
+		// 		return u
+		// 	},
+		// 	expectedCode:   0,
+		// 	expectedOutput: "Migrations successfully run.\n",
+		// },
 		{
 			name:        "basic_initialized_expects_initialized",
 			initialized: true,
@@ -91,46 +91,46 @@ func TestMigrateDatabase(t *testing.T) {
 			expectedCode:   -1,
 			expectedOutput: "Database has already been initialized. Please use 'boundary database migrate'\nfor any upgrade needs.\n",
 		},
-		{
-			name:        "old_version_table_used_intialized",
-			initialized: true,
-			urlProvider: func() string {
-				c, u, _, err := db.StartDbInDocker(dialect)
-				require.NoError(t, err)
-				t.Cleanup(func() {
-					require.NoError(t, c())
-				})
-				dBase, err := sql.Open(dialect, u)
-				require.NoError(t, err)
+		// {
+		// 	name:        "old_version_table_used_intialized",
+		// 	initialized: true,
+		// 	urlProvider: func() string {
+		// 		c, u, _, err := db.StartDbInDocker(dialect)
+		// 		require.NoError(t, err)
+		// 		t.Cleanup(func() {
+		// 			require.NoError(t, c())
+		// 		})
+		// 		dBase, err := sql.Open(dialect, u)
+		// 		require.NoError(t, err)
 
-				createStmt := `create table if not exists schema_migrations (version bigint primary key, dirty boolean not null)`
-				_, err = dBase.Exec(createStmt)
-				require.NoError(t, err)
-				return u
-			},
-			expectedCode:   0,
-			expectedOutput: "Migrations successfully run.\n",
-		},
-		{
-			name:        "old_version_table_used_not_intialized",
-			initialized: false,
-			urlProvider: func() string {
-				c, u, _, err := db.StartDbInDocker(dialect)
-				require.NoError(t, err)
-				t.Cleanup(func() {
-					require.NoError(t, c())
-				})
-				dBase, err := sql.Open(dialect, u)
-				require.NoError(t, err)
+		// 		createStmt := `create table if not exists schema_migrations (version bigint primary key, dirty boolean not null)`
+		// 		_, err = dBase.Exec(createStmt)
+		// 		require.NoError(t, err)
+		// 		return u
+		// 	},
+		// 	expectedCode:   0,
+		// 	expectedOutput: "Migrations successfully run.\n",
+		// },
+		// {
+		// 	name:        "old_version_table_used_not_intialized",
+		// 	initialized: false,
+		// 	urlProvider: func() string {
+		// 		c, u, _, err := db.StartDbInDocker(dialect)
+		// 		require.NoError(t, err)
+		// 		t.Cleanup(func() {
+		// 			require.NoError(t, c())
+		// 		})
+		// 		dBase, err := sql.Open(dialect, u)
+		// 		require.NoError(t, err)
 
-				createStmt := `create table if not exists schema_migrations (version bigint primary key, dirty boolean not null)`
-				_, err = dBase.Exec(createStmt)
-				require.NoError(t, err)
-				return u
-			},
-			expectedCode:   -1,
-			expectedOutput: "Database has already been initialized. Please use 'boundary database migrate'\nfor any upgrade needs.\n",
-		},
+		// 		createStmt := `create table if not exists schema_migrations (version bigint primary key, dirty boolean not null)`
+		// 		_, err = dBase.Exec(createStmt)
+		// 		require.NoError(t, err)
+		// 		return u
+		// 	},
+		// 	expectedCode:   -1,
+		// 	expectedOutput: "Database has already been initialized. Please use 'boundary database migrate'\nfor any upgrade needs.\n",
+		// },
 		{
 			name:          "bad_url_initialized",
 			initialized:   true,

@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/hashicorp/boundary/internal/db/schema"
-	"github.com/hashicorp/boundary/internal/docker"
+	"github.com/hashicorp/boundary/internal/dbtemplate"
 	"github.com/hashicorp/boundary/internal/oplog/oplog_test"
 	wrapping "github.com/hashicorp/go-kms-wrapping"
 	"github.com/hashicorp/go-kms-wrapping/wrappers/aead"
@@ -57,7 +57,7 @@ func testId(t *testing.T) string {
 func testInitDbInDocker(t *testing.T) (cleanup func() error, retURL string, err error) {
 	t.Helper()
 
-	cleanup, retURL, _, err = docker.StartDbInDocker("postgres")
+	cleanup, retURL, _, err = dbtemplate.StartDbFromTemplate("postgres")
 	if err != nil {
 		t.Fatal(err)
 	}
