@@ -24,10 +24,11 @@ require (
 	github.com/hashicorp/dawdle v0.4.0
 	github.com/hashicorp/dbassert v0.0.0-20200930125617-6218396928df
 	github.com/hashicorp/eventlogger v0.1.0
+	github.com/hashicorp/eventlogger/filters/encrypt v0.1.1 // indirect
 	github.com/hashicorp/go-bexpr v0.1.8
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/go-hclog v0.16.2
-	github.com/hashicorp/go-kms-wrapping v0.6.3
+	github.com/hashicorp/go-kms-wrapping v0.6.4
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/hashicorp/go-retryablehttp v0.7.0
 	github.com/hashicorp/go-rootcerts v1.0.2
